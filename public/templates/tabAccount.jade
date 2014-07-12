@@ -1,0 +1,36 @@
+div(ng-controller="AccountController")
+    br
+    div(ng-hide="loaded") Loading...
+    div(ng-show="loaded")
+        button(type="button" class="btn btn-sm btn-primary" ng-click="deleteAccount()") Delete
+        button(type="button" class="btn btn-sm btn-primary" ng-click="addAccount()") Add
+        button(type="button" class="btn btn-sm btn-primary" ng-click="editAccount()") Edit
+        div(ng-show="loaded" class="accountGridStyle" ng-grid="gridOptions")
+        script(type="text/ng-template" id="accountDlg.html")
+            .model-header
+                h3.modal-title {{doThis}} Account
+            .modal-body
+                form(name="form")
+                    label Account Code:
+                    input(ng-disabled="delete" required name="accountCode" type="text" ng-model="account.AccountCode" ng-model-options="{ updateOn: 'blur' }")
+                    span(ng-show="form.accountCode.$error.required") Required
+                    span(ng-show="!unique") Must be Unique
+                    br
+                    label Account Name:
+                    input(ng-disabled="delete" required name="accountName" type="text" ng-model="account.AccountName")
+                    span(ng-show="form.accountName.$error.required") Required
+                    br
+                    label Account Type:
+                    select(ng-disabled="delete" name="accountType" ng-options="option.AccountTypeCode as option.Description for option in accountTypes" ng-model="account.AccountTypeCode")
+                    br
+                    label Account Opened:
+                    input(ng-disabled="delete" required name="accountOpened" type="text" ui-date="{ dateFormat: 'mm-dd-yy' }" ui-date-format ng-model="account.AccountOpened")
+                    span(ng-show="form.accountOpened.$error.required") Required
+                    br
+                    label Account Balance:
+                    input(ng-disabled="delete" required name="accountBalance" type="number" ng-model="account.AccountBalance")
+                    span(ng-show="form.accountBalance.$error.required") Required
+                    br
+            .modal-footer
+                button(class=" btn btn-primary" ng-disabled="form.$invalid || !uniqueAccountCode()" ng-click="ok()") OK
+                button(class="btn btn-warning" ng-click="cancel()") Cancel

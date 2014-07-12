@@ -1,0 +1,2 @@
+{ "AccountTypeCode":"S","Description":"Single"}
+{ "AccountTypeCode":"J","Description":"Joint"}

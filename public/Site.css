@@ -1,0 +1,42 @@
+﻿body {
+}
+
+.accountGridStyle {
+    border: 1px solid rgb(212,212,212);
+    width: 1024px; 
+    height: 400px
+}
+
+label {
+  width:25%;
+  margin-right:0.5em;
+  padding-top:0.2em;
+  text-align:right;
+  font-weight:bold;
+}
+
+.ngGridMaxPagesNumber {
+  position: relative;
+  top: -8px;
+}
+
+.AccountBalance {
+    text-align: right;
+}
+
+.AccountBalanceHeader {
+    text-align: center;
+}
+
+.AccountBalanceTotal {
+    position: relative;
+    top: 10px;
+    display: inline-block;
+    text-align: right;
+    width: 1000px;
+    
+}
+
+.ngFooterPanel {
+    height: 60px;
+}

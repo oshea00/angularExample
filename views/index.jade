@@ -1,0 +1,17 @@
+extends layout
+block content
+  .container
+  div(ng-init="rootapipath='/api'")
+  div(ng-init="rootwebpath='/'")
+  div(class="navbar navbar-default", role="navigation")
+      .container-fluid
+          .navbar-header
+              button(type="button", class="navbar-toggle", data-toggle="collapse", data-target=".navbar-collapse")
+                  span(class="sr-only") Toggle navigation
+                  span(class="icon-bar")
+                  span(class="icon-bar")
+                  span(class="icon-bar")
+              a(class="navbar-brand", href="#") Doge Swap
+  tabset
+      tab(heading="Accounts")
+          include ../public/templates/tabAccount
