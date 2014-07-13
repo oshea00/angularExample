@@ -87,18 +87,6 @@ app.controller('AccountController', function ($scope, $log, $modal, $window, Res
             });
     };
 
-    $scope.addAccount = function () {
-        $scope.openDialog('lg', 'Add');
-    };
-
-    $scope.editAccount = function () {
-        $scope.openDialog('lg', 'Edit');
-    };
-
-    $scope.deleteAccount = function () {
-        $scope.openDialog('lg', 'Delete');
-    };
-
     $scope.removeAccount = function () {
         var account = $scope.selections[0];
         if (account != undefined) {
@@ -111,6 +99,18 @@ app.controller('AccountController', function ($scope, $log, $modal, $window, Res
                   getAccounts();
               });
         }
+    };
+
+    $scope.addAccount = function () {
+        $scope.openDialog('lg', 'Add');
+    };
+
+    $scope.editAccount = function () {
+        $scope.openDialog('lg', 'Edit');
+    };
+
+    $scope.deleteAccount = function () {
+        $scope.openDialog('lg', 'Delete');
     };
 
     $scope.openDialog = function (size, doThis) {
