@@ -120,6 +120,9 @@ app.controller('AccountController', function ($scope, $log, $modal, $window, Res
         }
         else
         {
+            if (!$scope.selections[0])
+                return;
+
             angular.copy($scope.selections[0], acct);
         }
 
