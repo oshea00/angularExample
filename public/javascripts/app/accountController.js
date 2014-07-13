@@ -16,6 +16,12 @@ app.controller('AccountController', function ($scope, $log, $modal, $window, Res
     $scope.selections = [];
     $scope.loaded = false;
 
+    var eventName = "accountsUpdated";
+
+    socket.on(eventName,function(msg){
+        getAccounts();
+    });
+
     Restangular.setBaseUrl($scope.rootapipath);
 
     $scope.gridDblClickHandler = function (rowItem) {
@@ -73,7 +79,7 @@ app.controller('AccountController', function ($scope, $log, $modal, $window, Res
     $scope.saveAccount = function (account) {
         Account.post(account)
             .then(function (account) {
-                getAccounts();
+                socket.emit(eventName,'account saved');
             },
             function (err) {
                 $window.alert(getMessage(err));
@@ -98,7 +104,7 @@ app.controller('AccountController', function ($scope, $log, $modal, $window, Res
         if (account != undefined) {
             Restangular.one("Account", account._id).remove()
               .then(function () {
-                  getAccounts();
+                  socket.emit(eventName,'account removed');
               },
               function (err) {
                   $window.alert(getMessage(err));

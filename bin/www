@@ -8,10 +8,8 @@ var io = require('socket.io')(server);
 app.set('port', process.env.PORT || 3030);
 
 io.on('connection', function (socket) {
-    console.log("a user connected");
-    socket.emit('news', { hello: 'world' });
-    socket.on('my other event', function (data) {
-        console.log(data);
+    socket.on('accountsUpdated',function(msg){
+       io.emit('accountsUpdated',msg);
     });
 });
 
