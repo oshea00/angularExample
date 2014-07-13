@@ -30,8 +30,8 @@ app.controller('AccountController', function ($scope, $log, $modal, $window, Res
                 $scope.accountTypes = accts;
                 $scope.loaded = true;
             },
-            function (response) {
-                $window.alert(response.data);
+            function (err) {
+                $window.alert(err.data.err);
             });
     };
 
@@ -65,8 +65,8 @@ app.controller('AccountController', function ($scope, $log, $modal, $window, Res
                 $scope.balanceTotal = 0;
                 _.each(accts, function (item) { $scope.balanceTotal += item.AccountBalance; });
             },
-            function (response) {
-                $window.alert(response.data);
+            function (err) {
+                $window.alert(err.data.err);
             });
     };
 
@@ -75,8 +75,8 @@ app.controller('AccountController', function ($scope, $log, $modal, $window, Res
             .then(function (account) {
                 getAccounts();
             },
-            function (response) {
-                $window.alert(response.data);
+            function (err) {
+                $window.alert(err.data.err);
                 getAccounts();
             });
     };

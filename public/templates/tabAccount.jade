@@ -8,7 +8,7 @@ div(ng-controller="AccountController")
         div(ng-show="loaded" class="accountGridStyle" ng-grid="gridOptions")
         script(type="text/ng-template" id="accountDlg.html")
             .model-header
-                h3.modal-title {{doThis}} Account
+                h3(class="modal-title") {{doThis}} Account
             .modal-body
                 form(name="form")
                     label Account Code:
@@ -32,5 +32,6 @@ div(ng-controller="AccountController")
                     span(ng-show="form.accountBalance.$error.required") Required
                     br
             .modal-footer
-                button(class=" btn btn-primary" ng-disabled="form.$invalid || !uniqueAccountCode()" ng-click="ok()") OK
-                button(class="btn btn-warning" ng-click="cancel()") Cancel
+                    //button(class=" btn btn-primary" ng-disabled="form.$invalid || !uniqueAccountCode()" ng-click="ok()") OK
+                    button(class=" btn btn-primary" ng-disabled="form.$invalid" ng-click="ok()") OK
+                    button(class="btn btn-warning" ng-click="cancel()") Cancel

@@ -1,21 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require("mongoose");
+var path = require("path");
+
+var Account = require("../data/account.js");
+var AccountType = require("../data/accountType.js");
 
 mongoose.connect('mongodb://localhost/angular');
-
-var Account = mongoose.model('accounts', new mongoose.Schema({
-        AccountCode:String,
-        AccountName:String,
-        AccountTypeCode:String,
-        AccountOpened:Date,
-        AccountBalance:Number
-}));
-
-var AccountType = mongoose.model('accounttypes', new mongoose.Schema({
-        AccountTypeCode:String,
-        Description:String
-}));
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -23,15 +14,10 @@ router.get('/', function(req, res) {
 });
 
 router.get('/api/Account', function(req, res) {
-    res.setHeader("Content-Type", "application/json");
     Account.find(function(err,accounts){
-        if (err) {
-            res.status(404);
-            res.send(err);
-        }
-        else {
-            res.send(accounts);
-        }
+        if (err)
+            res.send(404,err);
+        res.json(accounts);
     });
 });
 
@@ -48,59 +34,46 @@ router.post('/api/Account', function(req,res) {
             AccountBalance : req.body.AccountBalance
         });
         acct.save(function(err){
-           if (err) {
-               res.status(500);
-               res.send(err);
-           } else {
-               res.send(acct);
-           }
+           if (err)
+               res.send(500,err);
+           res.json(acct);
         });
     }
     else {
         // update
-        Account.findById(req.body._id,function(err,acct){
-            if (err) {
-              res.send(err);
-            } else {
-                acct.AccountCode = req.body.AccountCode;
-                acct.AccountName = req.body.AccountName;
-                acct.AccountTypeCode = req.body.AccountTypeCode;
-                acct.AccountOpened = req.body.AccountOpened;
-                acct.AccountBalance = req.body.AccountBalance;
-                acct.save(function(err){
-                    if (err){
-                        res.status(500);
-                        res.send(err);
-                    } else {
-                        res.send(acct);
-                    }
-                });
-            }
+        Account.findById(req.body._id,function(err,acct) {
+            if (err)
+                res.send(500,err);
+
+            acct.AccountCode = req.body.AccountCode;
+            acct.AccountName = req.body.AccountName;
+            acct.AccountTypeCode = req.body.AccountTypeCode;
+            acct.AccountOpened = req.body.AccountOpened;
+            acct.AccountBalance = req.body.AccountBalance;
+
+            acct.save(function(err){
+                if (err)
+                    res.status(500,err);
+                res.json(acct);
+            });
         });
     }
 });
 
 router.get('/api/AccountType', function(req, res) {
-    res.setHeader("Content-Type", "application/json");
     AccountType.find(function(err,accountTypes){
-        if (err) {
-            res.status(404);
-            res.send(err);
-        }
-        else {
-            res.send(accountTypes);
-        }
+        if (err)
+            res.send(404,err);
+        res.json(accountTypes);
+
     });
 });
 
 router.delete('/api/Account/:id', function(req,res){
     Account.findById(req.params.id,function(err,acct){
         if (acct)
-        {
             acct.remove();
-        }
     });
-    res.status(200);
     res.send("");
 });
 
