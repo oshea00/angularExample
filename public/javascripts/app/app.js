@@ -4,21 +4,19 @@
 // try to get reasonable message info from err
 function getMessage(err)
 {
-    if (err){
-        if (err.data) {
-            if (err.data.err)
-                return err.data.err;
-            if (err.data.message)
-                return err.data.message;
-        }
-        if (typeof err == 'string')
-            return err;
+    if (err.data.err)
+        return err.data.err;
 
+    if (err.data.message)
+        return err.data.message;
+
+    if (typeof err == 'string')
+        return err;
+
+    if (err)
         return "Error occurred - non standard error response."
-    }
-    else {
-        return "Error occurred - no reason given";
-    }
+
+    return "Error occurred - no reason given";
 }
 
 /* 
