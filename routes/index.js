@@ -7,7 +7,7 @@ var AccountType = require("../data/accountType.js");
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { rootapipath: '/api' });
 });
 
 router.get('/api/Account', function(req, res) {
