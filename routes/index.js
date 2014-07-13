@@ -1,12 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var mongoose = require("mongoose");
 var path = require("path");
 
 var Account = require("../data/account.js");
 var AccountType = require("../data/accountType.js");
-
-mongoose.connect('mongodb://localhost/angular');
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -14,7 +11,7 @@ router.get('/', function(req, res) {
 });
 
 router.get('/api/Account', function(req, res) {
-    Account.find(function(err,accounts){
+    return Account.find(function(err,accounts){
         if (err)
             res.send(404,err);
         res.json(accounts);

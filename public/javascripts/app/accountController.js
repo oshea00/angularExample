@@ -31,7 +31,7 @@ app.controller('AccountController', function ($scope, $log, $modal, $window, Res
                 $scope.loaded = true;
             },
             function (err) {
-                $window.alert(err.data.err);
+                $window.alert(getMessage(err));
             });
     };
 
@@ -66,7 +66,7 @@ app.controller('AccountController', function ($scope, $log, $modal, $window, Res
                 _.each(accts, function (item) { $scope.balanceTotal += item.AccountBalance; });
             },
             function (err) {
-                $window.alert(err.data.err);
+                $window.alert(getMessage(err));
             });
     };
 
@@ -76,7 +76,7 @@ app.controller('AccountController', function ($scope, $log, $modal, $window, Res
                 getAccounts();
             },
             function (err) {
-                $window.alert(err.data.err);
+                $window.alert(getMessage(err));
                 getAccounts();
             });
     };
@@ -100,8 +100,8 @@ app.controller('AccountController', function ($scope, $log, $modal, $window, Res
               .then(function () {
                   getAccounts();
               },
-              function (response) {
-                  $window.alert(response.data);
+              function (err) {
+                  $window.alert(getMessage(err));
                   getAccounts();
               });
         }
