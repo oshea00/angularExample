@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var path = require("path");
 
 var Account = require("../data/account");
 var AccountType = require("../data/accountType");
