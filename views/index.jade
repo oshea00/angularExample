@@ -2,15 +2,15 @@ extends layout
 block content
   .container
   div(ng-init="rootapipath='/api'")
-  div(class="navbar navbar-default", role="navigation")
+  div(class="navbar navbar-default" role="navigation")
       .container-fluid
           .navbar-header
-              button(type="button", class="navbar-toggle", data-toggle="collapse", data-target=".navbar-collapse")
+              button(type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse")
                   span(class="sr-only") Toggle navigation
                   span(class="icon-bar")
                   span(class="icon-bar")
                   span(class="icon-bar")
-              a(class="navbar-brand", href="#") Angular Example
+              a(class="navbar-brand" href="#") Angular Example
   tabset
       tab(heading="Accounts")
           include ../public/templates/tabAccount
