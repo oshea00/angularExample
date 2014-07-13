@@ -9,6 +9,7 @@ Example:
 
 Example:
 > mongoimport --db angular --collection accounts --file accounts.txt
+
 > mongoimport --db angular --collection accounttypes --file accounttypes.txt
 
 
