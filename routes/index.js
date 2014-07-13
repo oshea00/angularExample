@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 var path = require("path");
 
-var Account = require("../data/account.js");
-var AccountType = require("../data/accountType.js");
+var Account = require("../data/account");
+var AccountType = require("../data/accountType");
 
 /* GET home page. */
 router.get('/', function(req, res) {
