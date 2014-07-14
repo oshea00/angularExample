@@ -15,6 +15,7 @@ var AccountTypes = [
 db.accounts.insert(Accounts);
 db.accounts.ensureIndex({AccountCode:1},{unique:true,sparse:true});
 db.accounttypes.insert(AccountTypes);
+db.accounttypes.ensureIndex({AccountTypeCode:1},{unique:true,sparse:true});
 
 var accts = db.accounts.find();
 while (accts.hasNext()){
