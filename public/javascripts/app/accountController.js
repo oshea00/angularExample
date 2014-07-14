@@ -28,6 +28,7 @@ app.controller('AccountController', function ($scope, $log, $modal, $window, Res
         $scope.editAccount();
     }
 
+    var Account = Restangular.all('Account');
     var AccountType = Restangular.all('AccountType');
 
     var getAccountTypes = function () {
@@ -40,8 +41,20 @@ app.controller('AccountController', function ($scope, $log, $modal, $window, Res
                 $window.alert(getMessage(err));
             });
     };
-
     getAccountTypes();
+
+    var getAccounts = function () {
+        Account.getList()
+            .then(function (accts) {
+                $scope.accounts = accts;
+                $scope.balanceTotal = 0;
+                _.each(accts, function (item) { $scope.balanceTotal += item.AccountBalance; });
+            },
+            function (err) {
+                $window.alert(getMessage(err));
+            });
+    };
+    getAccounts();
 
     $scope.gridOptions = {
         data: 'accounts',
@@ -60,20 +73,6 @@ app.controller('AccountController', function ($scope, $log, $modal, $window, Res
                      { field: 'AccountOpened', displayName: 'Account Opened', cellFilter: "date:'MM-dd-yyyy'" },
                      { field: 'AccountBalance', displayName: 'Account Balance', headerClass: 'AccountBalanceHeader', cellClass: 'AccountBalance', cellFilter: "number: 2" }
         ]
-    };
-
-    var Account = Restangular.all('Account');
-
-    var getAccounts = function () {
-        Account.getList()
-            .then(function (accts) {
-                $scope.accounts = accts;
-                $scope.balanceTotal = 0;
-                _.each(accts, function (item) { $scope.balanceTotal += item.AccountBalance; });
-            },
-            function (err) {
-                $window.alert(getMessage(err));
-            });
     };
 
     $scope.saveAccount = function (account) {
@@ -163,8 +162,6 @@ app.controller('AccountController', function ($scope, $log, $modal, $window, Res
         });
     };
 
-    getAccounts();
-
 });
 
 var AccountDlgCtrl = function ($scope, $modalInstance, accounts, accountTypes, account, doThis) {
@@ -200,5 +197,3 @@ var AccountDlgCtrl = function ($scope, $modalInstance, accounts, accountTypes, a
         $modalInstance.dismiss('cancel');
     };
 };
-
-
