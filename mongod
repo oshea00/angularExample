@@ -1,2 +1,2 @@
+mkdir -p data/db
 mongod --dbpath=data/db --nojournal --rest "$@"
-mongo localhost:27017/angular data/seed/setup.js
