@@ -37,22 +37,25 @@ router.post('/api/Account', function(req,res) {
     }
     else {
         // update
-        Account.findById(req.body._id,function(err,acct) {
-            if (err)
-                res.send(500,err);
-
-            acct.AccountCode = req.body.AccountCode;
-            acct.AccountName = req.body.AccountName;
-            acct.AccountTypeCode = req.body.AccountTypeCode;
-            acct.AccountOpened = req.body.AccountOpened;
-            acct.AccountBalance = req.body.AccountBalance;
-
-            acct.save(function(err){
-                if (err)
-                    res.status(500,err);
-                res.json(acct);
-            });
-        });
+        Account.findById(req.body._id)  
+            .then(
+                function(acct) {
+                    acct.AccountCode = req.body.AccountCode;
+                    acct.AccountName = req.body.AccountName;
+                    acct.AccountTypeCode = req.body.AccountTypeCode;
+                    acct.AccountOpened = req.body.AccountOpened;
+                    acct.AccountBalance = req.body.AccountBalance;
+        
+                    acct.save(function(err){
+                        if (err)
+                            res.status(500,err);
+                        res.json(acct);
+                    });
+                },
+                function(err) {
+                    res.send(500,err);
+                }
+        );
     }
 });
 
