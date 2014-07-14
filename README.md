@@ -31,6 +31,10 @@ Execute:
 > ./bin/www
 ```
 
+#### Open Browser
+`http://localhost:3030`
+
+
 
 
 
