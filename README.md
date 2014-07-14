@@ -7,7 +7,7 @@ As users edit the account list other users will see the account list updates.
 Requires MongoDB to be running first. 
 Run 'mongod' bash script in the root project folder. 
 If you already have `mongod` running on port 27017, you'll need to stop that 
-process, or choose a unique port for the startup parameter in the above script.
+process, or choose a unique port for the startup parameter in the `./mongod` script.
 
 Execute:
 
