@@ -27,7 +27,7 @@ app.directive('isNumber', ['numberFilter',function(numberFilter){
                 else{
                     ctrl.$setValidity('isNumber', false);
                 }
-                return viewValue;
+                return viewValue.replace(/,/g,'');
             }
 
             function formatNumber(viewValue) {
@@ -221,7 +221,6 @@ var AccountDlgCtrl = function ($scope, $modalInstance, accounts, accountTypes, a
     };
 
     $scope.ok = function () {
-        $scope.account.AccountBalance = convertToNumber($scope.account.AccountBalance);
         $modalInstance.close({ account: $scope.account, doThis: $scope.doThis });
     };
 
