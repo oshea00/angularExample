@@ -23,7 +23,6 @@ app.directive('isNumber', ['numberFilter',function(numberFilter){
 
                 if (/^-{0,1}(\d{1,3}(,\d{3})*\.{0,1}\d*$)|^-{0,1}\d*\.{0,1}\d*$/.test(viewValue)) {
                     ctrl.$setValidity('isNumber',true);
-                    //ctrl.$setViewValue((typeof viewValue === 'string')?Number(viewValue):viewValue);
                 }
                 else{
                     ctrl.$setValidity('isNumber', false);
