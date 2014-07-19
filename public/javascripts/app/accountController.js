@@ -15,7 +15,7 @@ app.directive('isNumber', ['numberFilter',function(numberFilter){
     return{
         require:'ngModel',
         link: function(scope, elem, attrs, ctrl){
-            var digits = attrs.isNumber || 2;
+            var digits = attrs.isNumber.length===0 ? "2" : attrs.isNumber;
             ctrl.$parsers.unshift(checkForNumber);
             ctrl.$formatters.unshift(formatNumber);
 
