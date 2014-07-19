@@ -21,6 +21,7 @@ app.directive('isNumber', ['numberFilter',function(numberFilter){
 
             function checkForNumber(viewValue){
 
+                // Checks for positive or negative decimal or integer number with or without thousand separators
                 if (/^-{0,1}\d{1,3}(,\d{3})*\.{0,1}\d*$|^-{0,1}\d*\.{0,1}\d*$/.test(viewValue)) {
                     ctrl.$setValidity('isNumber',true);
                 }
