@@ -11,6 +11,38 @@
     }
 });
 
+app.directive('isNumber', ['numberFilter',function(numberFilter){
+    return{
+        require:'ngModel',
+        link: function(scope, elem, attrs, ctrl){
+            var digits = attrs.isNumber || 2;
+            ctrl.$parsers.unshift(checkForNumber);
+            ctrl.$formatters.unshift(formatNumber);
+
+            function checkForNumber(viewValue){
+
+                if (/^-{0,1}(\d{1,3}(,\d{3})*\.{0,1}\d*$)|^-{0,1}\d*\.{0,1}\d*$/.test(viewValue)) {
+                    ctrl.$setValidity('isNumber',true);
+                    //ctrl.$setViewValue((typeof viewValue === 'string')?Number(viewValue):viewValue);
+                }
+                else{
+                    ctrl.$setValidity('isNumber', false);
+                }
+                return viewValue;
+            }
+
+            function formatNumber(viewValue) {
+                return numberFilter(viewValue,digits);
+            }
+        }
+    };
+}]);
+
+function convertToNumber(value)
+{
+    return (typeof value === 'string') ? Number(value.replace(/,/g,'')) : value;
+}
+
 app.controller('AccountController', function ($scope, $log, $modal, $window, Restangular) {
 
     $scope.selections = [];
@@ -190,6 +222,7 @@ var AccountDlgCtrl = function ($scope, $modalInstance, accounts, accountTypes, a
     };
 
     $scope.ok = function () {
+        $scope.account.AccountBalance = convertToNumber($scope.account.AccountBalance);
         $modalInstance.close({ account: $scope.account, doThis: $scope.doThis });
     };
 

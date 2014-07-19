@@ -28,8 +28,9 @@ div(ng-controller="AccountController")
                     span(ng-show="form.accountOpened.$error.required") Required
                     br
                     label Account Balance:
-                    input(ng-disabled="delete" required name="accountBalance" type="number" ng-model="account.AccountBalance")
+                    input(ng-disabled="delete" is-number="2" required name="accountBalance" ng-model="account.AccountBalance")
                     span(ng-show="form.accountBalance.$error.required") Required
+                    span(ng-show="form.accountBalance.$error.isNumber")  Invalid Number
                     br
             .modal-footer
                     //button(class=" btn btn-primary" ng-disabled="form.$invalid || !uniqueAccountCode()" ng-click="ok()") OK
