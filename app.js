@@ -9,7 +9,10 @@ var index = require('./routes/index');
 
 // connect to database
 //mongoose.connect('mongodb://localhost/angular');
+console.log("Connecting to mongolab...");
+console.log("")
 mongoose.connect('mongodb://angular:Migcrib1@ds061298.mongolab.com:61298/heroku_app27600750');
+
 
 // Setup express app
 var app = express();
