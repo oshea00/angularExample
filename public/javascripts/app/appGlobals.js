@@ -120,9 +120,6 @@ app.factory('lookupDialog', ['$modal',function($modal){
             size: size,
             backdrop: 'static',
             resolve: {
-                result : function(){
-                    return { LookupCode : "" };
-                }
             }
         });
     }
@@ -133,12 +130,12 @@ app.factory('lookupDialog', ['$modal',function($modal){
 
 }]);
 
-var LookupDlgCtrl = function ($scope, $modalInstance, result) {
+var LookupDlgCtrl = function ($scope, $modalInstance) {
 
-    $scope.result = result;
+    $scope.result = {};
 
     $scope.ok = function () {
-        $modalInstance.close({ lookupCode: $scope.result.LookupCode });
+        $modalInstance.close({ lookupCode: $scope.result.lookupCode });
     };
 
     $scope.cancel = function () {

@@ -54,7 +54,7 @@ block content
         .modal-body
             form(name="lookup")
                 label Lookup Code:
-                input(required name="lookupCode" type="text" ng-model="result.LookupCode")
+                input(required name="lookupCode" type="text" ng-model="result.lookupCode")
                 span(ng-show="lookup.lookupCode.$error.required") *
         .modal-footer
                 button(class=" btn btn-primary" ng-disabled="lookup.$invalid" ng-click="ok()") OK
