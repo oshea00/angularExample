@@ -69,7 +69,7 @@ app.factory('accountDialog', ['$modal',function($modal){
 
 }]);
 
-var AccountDlgCtrl = function ($scope, $modalInstance, accounts, accountTypes, account, doThis) {
+var AccountDlgCtrl = function ($scope, $modalInstance, lookupDialog, accounts, accountTypes, account, doThis) {
 
     $scope.accounts = accounts;
     $scope.accountTypes = accountTypes;
@@ -94,6 +94,14 @@ var AccountDlgCtrl = function ($scope, $modalInstance, accounts, accountTypes, a
         return !found;
     };
 
+    $scope.getCode = function() {
+        var modalInstance = lookupDialog.open('lg');
+
+        modalInstance.result.then(function (result) {
+            $scope.account.AccountCode = result.lookupCode;
+        });
+    };
+
     $scope.ok = function () {
         $modalInstance.close({ account: $scope.account, doThis: $scope.doThis });
     };
@@ -103,3 +111,37 @@ var AccountDlgCtrl = function ($scope, $modalInstance, accounts, accountTypes, a
     };
 };
 
+app.factory('lookupDialog', ['$modal',function($modal){
+
+    function open(size) {
+        return $modal.open({
+            templateUrl: 'lookupDlg.html',
+            controller: LookupDlgCtrl,
+            size: size,
+            backdrop: 'static',
+            resolve: {
+                result : function(){
+                    return { LookupCode : "" };
+                }
+            }
+        });
+    }
+
+    return {
+        open : open
+    };
+
+}]);
+
+var LookupDlgCtrl = function ($scope, $modalInstance, result) {
+
+    $scope.result = result;
+
+    $scope.ok = function () {
+        $modalInstance.close({ lookupCode: $scope.result.LookupCode });
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+};
