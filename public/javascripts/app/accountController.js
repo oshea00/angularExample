@@ -1,4 +1,4 @@
-﻿app.controller('AccountController', function ($scope, $log, $modal, $window, Restangular, accountDialog) {
+﻿app.controller('AccountController', function ($scope, $log, $modal, $window, Restangular, accountDialog, accountRepo) {
 
     $scope.selections = [];
     $scope.loaded = false;
@@ -9,13 +9,12 @@
         getAccounts();
     });
 
-    Restangular.setBaseUrl($scope.rootapipath);
+    accountRepo.init($scope.rootapipath);
 
     $scope.gridDblClickHandler = function (rowItem) {
         $scope.editAccount();
     }
 
-    var Account = Restangular.all('Account');
     var AccountType = Restangular.all('AccountType');
 
     var getAccountTypes = function () {
@@ -31,7 +30,7 @@
     getAccountTypes();
 
     var getAccounts = function () {
-        Account.getList()
+        accountRepo.getList()
             .then(function (accts) {
                 $scope.accounts = accts;
                 $scope.balanceTotal = 0;
@@ -63,7 +62,7 @@
     };
 
     $scope.saveAccount = function (account) {
-        Account.post(account)
+        accountRepo.save(account)
             .then(function (account) {
                 socket.emit(eventName,'account saved');
             },
@@ -76,7 +75,7 @@
     $scope.removeAccount = function () {
         var account = $scope.selections[0];
         if (account != undefined) {
-            Restangular.one("Account", account._id).remove()
+            accountRepo.remove(account._id)
               .then(function () {
                   socket.emit(eventName,'account removed');
               },

@@ -142,3 +142,24 @@ var LookupDlgCtrl = function ($scope, $modalInstance) {
         $modalInstance.dismiss('cancel');
     };
 };
+
+app.factory('accountRepo', ['Restangular',function(Restangular){
+
+    function init(rootApiPath)
+    {
+        Restangular.setBaseUrl(rootApiPath);
+    }
+
+    function remove(id) {
+        return Restangular.one('Account',id).remove();
+    }
+
+    return {
+        init : init,
+        getList : Restangular.all('Account').getList,
+        save : Restangular.all('Account').post,
+        remove: remove
+    }
+
+}]);
+
