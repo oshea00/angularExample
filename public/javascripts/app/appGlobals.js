@@ -163,3 +163,22 @@ app.factory('accountRepo', ['Restangular',function(Restangular){
 
 }]);
 
+app.factory('accountTypeRepo', ['Restangular',function(Restangular){
+
+    function init(rootApiPath)
+    {
+        Restangular.setBaseUrl(rootApiPath);
+    }
+
+    function remove(id) {
+        return Restangular.one('AccountType',id).remove();
+    }
+
+    return {
+        init : init,
+        getList : Restangular.all('AccountType').getList,
+        save : Restangular.all('AccountType').post,
+        remove: remove
+    }
+
+}]);

@@ -1,4 +1,4 @@
-﻿app.controller('AccountController', function ($scope, $log, $modal, $window, Restangular, accountDialog, accountRepo) {
+﻿app.controller('AccountController', function ($scope, $log, $modal, $window, Restangular, accountDialog, accountRepo, accountTypeRepo) {
 
     $scope.selections = [];
     $scope.loaded = false;
@@ -10,15 +10,15 @@
     });
 
     accountRepo.init($scope.rootapipath);
+    accountTypeRepo.init($scope.rootapipath);
 
     $scope.gridDblClickHandler = function (rowItem) {
         $scope.editAccount();
     }
 
-    var AccountType = Restangular.all('AccountType');
 
     var getAccountTypes = function () {
-        AccountType.getList()
+        accountTypeRepo.getList()
             .then(function (accts) {
                 $scope.accountTypes = accts;
                 $scope.loaded = true;
